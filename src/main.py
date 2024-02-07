@@ -39,7 +39,7 @@ def createNote(note:Note):
 
 @app.put('/update_note/{noteId}', response_model=Note, status_code=status.HTTP_202_ACCEPTED)
 def updateNote(noteId:int, note:Note):
-    findNote = db.query(models.Note).filter(models.Note.id == note.id).first()
+    findNote = db.query(models.Note).filter(models.Note.id == noteId).first()
     findNote.id = note.id,
     findNote.author = note.author,
     findNote.content = note.content
@@ -53,7 +53,7 @@ def updateNote(noteId:int, note:Note):
 
 @app.delete('/delete_note/{noteId}', response_model=Note, status_code=status.HTTP_200_OK)
 def deleteNote(noteId:int, note:Note):
-    findNoteToDelete = db.query(models.Note).filter(models.Note.id == note.id).first()
+    findNoteToDelete = db.query(models.Note).filter(models.Note.id == noteId).first()
     db.delete(findNoteToDelete)
 
     if findNoteToDelete is None:
